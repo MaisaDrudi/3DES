@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Gyroscope, GyroscopeOrientation, GyroscopeOptions } from '@ionic-native/gyroscope/ngx';
-import {DeviceMotion,DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +7,6 @@ import {DeviceMotion,DeviceMotionAccelerationData } from '@ionic-native/device-m
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   x:any;
   y:any;
   z:any;
@@ -16,8 +14,9 @@ export class HomePage {
   accY:any;
   accZ:any;
   timestamp:any;
+  
 
-  constructor(private gyroscope: Gyroscope, private  deviceMotion: DeviceMotion) {
+  constructor(private gyroscope: Gyroscope) {
     this.x = -1;
     this.y = -1;
     this.z = -1;
@@ -28,7 +27,10 @@ export class HomePage {
   }
 
   giroscopioCurrent(){
+    
+   
 
+  // Chamada para obter as informações Com o getCurrent
   this.gyroscope.getCurrent()
     .then((orientation: GyroscopeOrientation) => {
       this.x = orientation.x;
@@ -39,41 +41,22 @@ export class HomePage {
     })
     .catch()
   }
-    giroscopioWatch(){
 
-     let options: GyroscopeOptions = {
-       frequency: 500
-     };
-     this.gyroscope.watch(options)
-     .subscribe((orientation: GyroscopeOrientation) => {
-        this.x=orientation.x;
-        this.y=orientation.y;
-        this.z=orientation.z;
-        this.timestamp=orientation.timestamp;
-        console.log(orientation.x, orientation.y, orientation.z, orientation.timestamp);
-     });
-   }
+  // Chamada recorrente com o watch
+  giroscopioWatch(){
 
-
-  acelerometro(){
-    this.deviceMotion.getCurrentAcceleration().then(
-      (acceleration: DeviceMotionAccelerationData) =>
-       console.log(acceleration),
- 
-    );
-    
-     let options: GyroscopeOptions = {
+     // Parâmetro o Current
+    let options: GyroscopeOptions = {
       frequency: 500
     };
-
-    var subscription = this.deviceMotion.watchAcceleration(options)
-    .subscribe((acceleration: DeviceMotionAccelerationData) => {
-      console.log(acceleration);
-      this.accX=acceleration.x;
-      this.accY=acceleration.y;
-      this.accZ=acceleration.z;
+    this.gyroscope.watch(options)
+    .subscribe((orientation: GyroscopeOrientation) => {
+       this.x=orientation.x;
+       this.y=orientation.y;
+       this.z=orientation.z;
+       this.timestamp=orientation.timestamp;
+       console.log(orientation.x, orientation.y, orientation.z, orientation.timestamp);
     });
-    
   }
 
 }

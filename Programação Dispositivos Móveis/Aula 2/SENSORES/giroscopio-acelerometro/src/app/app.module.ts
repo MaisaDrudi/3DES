@@ -9,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {Gyroscope} from '@ionic-native/gyroscope/ngx';
-import {DeviceMotion} from '@ionic-native/device-motion/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,8 +18,7 @@ import {DeviceMotion} from '@ionic-native/device-motion/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Gyroscope,
-    DeviceMotion
+    Gyroscope
   ],
   bootstrap: [AppComponent]
 })
